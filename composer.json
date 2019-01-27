@@ -1,0 +1,24 @@
+{
+    "name": "lixweb/image-pusher",
+    "description": "This is a simple PHP Library for uploading images from web page to server",
+    "type": "library",
+    "license": "MIT",
+    "version":"1.1",
+    "authors": [
+        {
+            "name": "Hini Majesty",
+            "email": "hinimajesty@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php" : ">=5.3"
+    }, 
+    "autoload": {
+        "psr-4":{
+            "Lixweb\\ImagePusher\\":"src/", 
+            "Lixweb\\Exceptions\\":"src/exceptions", 
+            "Lixweb\\Generators\\":"src/generators"
+        }
+    }
+}
