@@ -19,7 +19,8 @@ class ImagePusher implements ImagePusherInterface {
     private $directory         = null; 
     private $image_type        = null;  
     private $max_image_size    = null; 
-    public  $proceed_flag       = false; 
+    private $proceed_flag      = false;
+    private $final_image_path  = null;
     private $allowed_types     = ['jpg','png','jpeg','gif']; 
 
 
@@ -37,17 +38,12 @@ class ImagePusher implements ImagePusherInterface {
         return $this; 
     }
 
-    public function save(){
-        $this->storeImage(); 
-        return $this; 
-    }
-
-    private function storeImage($file_name = null)
-    {
+    private function storeImage($file_name = null, $log = false)
+    {   
         if( ! is_numeric( $this->processImage() ) ){
             if(is_null($file_name)){
                 if(move_uploaded_file($this->image($this->field_name,"tmp_name"), $this->imageFilePath($this->directory))){
-                    echo "Upload Succeeded";
+                    return $this->final_image_path;  
                 }else{
                     echo "Upload did not succeed"; 
                 }
@@ -56,30 +52,32 @@ class ImagePusher implements ImagePusherInterface {
                         $this->image($this->field_name,"tmp_name"),
                         $this->imageFilePath($this->directory, $file_name)
                 )){
-                    echo "Upload Succeeded";
+                    return $this->final_image_path; 
                 }else{
                     echo "Upload did not succeed"; 
                 }
             }
         
         }else{
-            $this->parseErrCode($this->processImage());
+           return ($log) ? $this->parseErrCode($this->processImage()) : false;
         }
     }
 
+    public function save(){
+        return  (! is_bool( $this->storeImage() )) ? $this->final_image_path : NULL; 
+    }
 
     public function saveWithRandom()
-    {
-        $this->saveAs(RandomCodeGenerator::unique());
+    {   
+        return  (! is_bool( $this->saveAs(RandomCodeGenerator::unique()) )) ? $this->final_image_path : NULL;
     }
 
     public function saveAs($file_name = null){
         if(!is_null($file_name)){
-            $this->storeImage($file_name); 
+           return (! is_bool( $this->storeImage($file_name) )) ? $this->final_image_path : NULL ; 
         }else{
             echo "No file name provided, use Save() method if this is a prefered approach"; 
         }
-        return $this; 
     }
 
     private function processImage($log = false)

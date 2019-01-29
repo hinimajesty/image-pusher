@@ -122,15 +122,17 @@ trait ImagePusherTrait {
 
     public function parseStorageDirectory($directory)
     {
-        if(!$directory[0] == '/'){
-            return $directory; 
-        }
-        return trim($directory, '/');
+        // if(!$directory[0] == '/'){
+        //     return $directory; 
+        // }
+        // return trim($directory, '/');
+        return $directory; 
     }
 
     public function imageFilePath($directory = null, $custom_name = null){
         if(!$directory == null){
-            return $this->parseStorageDirectory($directory) .'/'. $this->imageFileName($custom_name); 
+            return $this->final_image_path = $this->parseStorageDirectory($directory) 
+                   . $this->imageFileName($custom_name); 
         }
     }
 
@@ -148,7 +150,8 @@ trait ImagePusherTrait {
     }
 
     public function parseImageName($custom_name){
-        $ext = explode("/",$this->fileMime())[1]; 
+        $ext_arr = explode("/",$this->fileMime());
+        $ext = isset($ext_arr[1]) ? $ext_arr[1] : $ext_arr[0]; 
         return $custom_name . '.' .$ext;  
     }
 
