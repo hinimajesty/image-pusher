@@ -1,5 +1,5 @@
 <?php
-namespace Lixweb\ImagePusher;
+namespace Yhapps\ImagePusher;
 
 interface ImagePusherInterface {
  

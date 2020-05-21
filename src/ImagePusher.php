@@ -1,9 +1,9 @@
 <?php
-namespace Lixweb\ImagePusher; 
+namespace Yhapps\ImagePusher; 
 
-use Lixweb\Generators\RandomCodeGenerator;
-use Lixweb\ImagePusher\ImagePusherInterface;
-use Lixweb\ImagePusher\ImagePusherTrait;
+use Yhapps\Generators\RandomCodeGenerator;
+use Yhapps\ImagePusher\ImagePusherInterface;
+use Yhapps\ImagePusher\ImagePusherTrait;
 
 class ImagePusher implements ImagePusherInterface {
 
@@ -102,16 +102,16 @@ class ImagePusher implements ImagePusherInterface {
 
     private function parseErrCode($code){
         switch($code) {
-            case self::IMAGE_TOO_LARGE: 
+            case $this->getImageTooLargeErrorCode(): 
                 echo "Image too large to upload halted."; 
             break;
-            case self::IMAGE_NOT_UPLOADED:
+            case $this->getImageNotUploadedErrorCode():
                 echo "Image not uploaded yet."; 
             break;
-            case self::INVALID_EXTENSION: 
+            case $this->getInvalidExtensionErrorCode(): 
                 echo "Image extension is invalid."; 
             break; 
-            case self::IMAGE_NAME_EXISTS: 
+            case $this->getImageNameExistsErrorCode(): 
                 echo "Image name already exists."; 
             break; 
         }

@@ -1,8 +1,8 @@
 <?php
-namespace Lixweb\ImagePusher;
+namespace Yhapps\ImagePusher;
 
-use Lixweb\Exceptions\UndefinedFormIndexException;
-use Lixweb\Exceptions\UndefinedPropertyException;
+use Yhapps\Exceptions\UndefinedFormIndexException;
+use Yhapps\Exceptions\UndefinedPropertyException;
 
 trait ImagePusherTrait {
 
@@ -62,10 +62,15 @@ trait ImagePusherTrait {
         return false; 
     }
 
+    public function getAllowedImageTypes()
+    {
+        return $this->allowed_types; 
+    }
+
     public function validImageExtension($log = false)
     {
         if(!$this->image_type == ""){
-            if(in_array($this->image_type, $this->allowed_types)){
+            if(in_array($this->image_type, $this->getAllowedImageTypes())){
                 if($log){
                     echo "This extension is allowed file can be uploaded"; 
                 }
@@ -176,4 +181,25 @@ trait ImagePusherTrait {
     {
         die(var_dump($data));
     }
+
+    public function getImageTooLargeErrorCode()
+    {
+        return self::IMAGE_TOO_LARGE;
+    }
+
+    public function getImageNotUploadErrorCode()
+    {
+        return self::IMAGE_NOT_UPLOADED;
+    }
+
+    public function getImageNameExistsErrorCode()
+    {
+        return self::IMAGE_NAME_EXISTS; 
+    }
+
+    public function getInvalidExtensionErrorCode()
+    {
+        return self::INVALID_EXTENSION; 
+    }
+
 }

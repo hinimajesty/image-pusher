@@ -1,5 +1,5 @@
 <?php
-namespace Lixweb\Generators; 
+namespace Yhapps\Generators; 
 
 class RandomCodeGenerator {
         public static function make($string, $salt = ''){

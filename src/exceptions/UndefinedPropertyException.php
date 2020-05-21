@@ -1,5 +1,5 @@
 <?php
-namespace Lixweb\Exceptions; 
+namespace Yhapps\Exceptions; 
 
 class UndefinedPropertyException extends \Exception {
     public function errorMessage()
